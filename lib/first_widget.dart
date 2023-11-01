@@ -139,7 +139,9 @@ class _FirstWidgetState extends State<FirstWidget> {
                               const SizedBox(
                                 width: 40,
                               ),
-                              const MainBodyImage()
+                              Expanded(child: SizedBox(
+                                width: ResponsiveBreakpoints.of(context).isMobile ? 250 : 450,
+                                child: const MainBodyImage()))
                             ],
                           ),
                   ),

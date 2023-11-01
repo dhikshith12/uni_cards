@@ -30,8 +30,8 @@ class _UniCloneState extends State<UniClone> {
         debugLog: true,
         breakpoints: const [
           Breakpoint(start: 0, end: 229, name: tooSmallBreakpoint),
-          Breakpoint(start: 230, end: 767, name: MOBILE),
-          Breakpoint(start: 768, end: 1920, name: DESKTOP),
+          Breakpoint(start: 230, end: 550, name: MOBILE),
+          Breakpoint(start: 551, end: 1920, name: DESKTOP),
           Breakpoint(start: 1921, end: double.infinity, name: '4K'),
         ],
         child: Builder(builder: (context) {
