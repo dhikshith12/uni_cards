@@ -12,6 +12,17 @@ class SecondWidget extends StatefulWidget {
 }
 
 class _SecondWidgetState extends State<SecondWidget> {
+  bool animate = false;
+  @override
+  void initState() {
+    Future.delayed(const Duration(milliseconds: 500), () {
+      setState(() {
+        animate = true;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -31,43 +42,95 @@ class _SecondWidgetState extends State<SecondWidget> {
                 const SizedBox(
                   height: 100,
                 ),
-              ...UniTexts.secondPageBodyText.map<Widget>((line) => RichText(
-                    textAlign: isMobile ? TextAlign.start : TextAlign.center,
-                    text: TextSpan(
-                      children: line.blocks
-                          .map<TextSpan>(
-                            (block) => TextSpan(
-                              text: block.text,
-                              style: block.getTs(isMobile ? 26 : 36),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  )),
+              ...UniTexts.secondPageBodyText
+                  .asMap()
+                  .map((key, line) => MapEntry(
+                      key,
+                      AnimatedSwitcher(
+                        switchInCurve: Curves.easeIn,
+                        duration: Duration(milliseconds: (key + 1) * 600),
+                        transitionBuilder: (child, animation) => FadeTransition(
+                          opacity: animation,
+                          child: SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(0.0, 1.0),
+                                end: const Offset(0.0, 0.0),
+                              ).animate(animation),
+                              child: child),
+                        ),
+                        layoutBuilder: (currentChild, previousChildren) =>
+                            Stack(
+                          clipBehavior: Clip.antiAlias,
+                          children: [
+                            if (currentChild != null) currentChild,
+                          ],
+                        ),
+                        child: animate
+                            ? RichText(
+                                textAlign: isMobile
+                                    ? TextAlign.start
+                                    : TextAlign.center,
+                                text: TextSpan(
+                                  children: line.blocks
+                                      .map<TextSpan>(
+                                        (block) => TextSpan(
+                                          text: block.text,
+                                          style:
+                                              block.getTs(isMobile ? 26 : 36),
+                                        ),
+                                      )
+                                      .toList(),
+                                ),
+                              )
+                            : const SizedBox(),
+                      )))
+                  .values,
               const SizedBox(height: 50),
-              Container(
-                height: isMobile ? 96 : 150,
-                width: isMobile ? 96 : 150,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color(0xff65ecd8),
-                      Color(0xfffdef78),
-                    ],
-                    stops: [0.1107, 0.8028],
-                  ),
+              AnimatedSwitcher(
+                switchInCurve: Curves.easeIn,
+                duration: const Duration(milliseconds: 4*600),
+                transitionBuilder: (child, animation) => FadeTransition(
+                  opacity: animation,
+                  child: SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(0.0, -1.0),
+                        end: const Offset(0.0, 0.0),
+                      ).animate(animation),
+                      child: child),
                 ),
-                child: Center(
-                    child: Padding(
-                  padding:
-                      isMobile ? const EdgeInsets.all(20.0) : EdgeInsets.zero,
-                  child: SvgPicture.asset(
-                    'assets/down_arrow.svg',
-                  ),
-                )),
+                layoutBuilder: (currentChild, previousChildren) => Stack(
+                  clipBehavior: Clip.antiAlias,
+                  children: [
+                    if (currentChild != null) currentChild,
+                  ],
+                ),
+                child: animate
+                    ? Container(
+                        height: isMobile ? 96 : 150,
+                        width: isMobile ? 96 : 150,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color(0xff65ecd8),
+                              Color(0xfffdef78),
+                            ],
+                            stops: [0.1107, 0.8028],
+                          ),
+                        ),
+                        child: Center(
+                            child: Padding(
+                          padding: isMobile
+                              ? const EdgeInsets.all(20.0)
+                              : EdgeInsets.zero,
+                          child: SvgPicture.asset(
+                            'assets/down_arrow.svg',
+                          ),
+                        )),
+                      )
+                    : const SizedBox(),
               ),
               const SizedBox(height: 50),
               Builder(builder: (context) {
@@ -299,23 +362,24 @@ class _SecondWidgetState extends State<SecondWidget> {
               }),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 100),
-                child: isMobile? 
-                 WidthConstraintClip(criticalWidth: 280, child: 
-                                  RichText(
-                    text: TextSpan(
-                        children: UniTexts.thirdPageBodyText3.blocks
-                            .map<InlineSpan>((e) => TextSpan(
-                                text: e.text,
-                                style: e.getTs(isMobile ? 26 : 32)))
-                            .toList())),                 
-                 ):
-                 RichText(
-                    text: TextSpan(
-                        children: UniTexts.thirdPageBodyText3.blocks
-                            .map<InlineSpan>((e) => TextSpan(
-                                text: e.text,
-                                style: e.getTs(isMobile ? 26 : 32)))
-                            .toList())),
+                child: isMobile
+                    ? WidthConstraintClip(
+                        criticalWidth: 280,
+                        child: RichText(
+                            text: TextSpan(
+                                children: UniTexts.thirdPageBodyText3.blocks
+                                    .map<InlineSpan>((e) => TextSpan(
+                                        text: e.text,
+                                        style: e.getTs(isMobile ? 26 : 32)))
+                                    .toList())),
+                      )
+                    : RichText(
+                        text: TextSpan(
+                            children: UniTexts.thirdPageBodyText3.blocks
+                                .map<InlineSpan>((e) => TextSpan(
+                                    text: e.text,
+                                    style: e.getTs(isMobile ? 26 : 32)))
+                                .toList())),
               )
             ]),
       ),

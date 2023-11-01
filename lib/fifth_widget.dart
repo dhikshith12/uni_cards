@@ -51,6 +51,29 @@ class SecurityInfo extends StatelessWidget {
         crossAxisAlignment:
             isMobile ? CrossAxisAlignment.start : CrossAxisAlignment.center,
         children: [
+          isMobile?
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Uni maintains the highest level of security standards',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontFamily: matterRegular, color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SvgPicture.asset('assets/pcidss_cert.svg')
+                  ],
+                ),
+              ),
+            ],
+          ):
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -77,6 +100,7 @@ class DownloadNow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     bool isMobile = ResponsiveBreakpoints.of(context).isMobile;
     return Container(
       padding: const EdgeInsets.all(30),
@@ -100,11 +124,11 @@ class DownloadNow extends StatelessWidget {
             WidthConstraintClip(
                 criticalWidth: 1250,
                 child: isMobile
-                    ? const Column(
+                    ? Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Download now to get started',
                             textAlign: TextAlign.start,
                             style: TextStyle(
@@ -113,15 +137,24 @@ class DownloadNow extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
-                          Row(
+                          if(width>370)
+                          const Row(
                             children: [
                               PlayBtn(),
                               SizedBox(
                                 width: 10,
                               ),
+                              AppStoreBtn()
+                            ],
+                          ),
+                          if(width<=370)
+                          const Column(
+                            children: [
+                              PlayBtn(),
+                              SizedBox(height: 10,),
                               AppStoreBtn()
                             ],
                           )
@@ -294,7 +327,8 @@ Email: care@uni.club
              const Padding(
                padding: EdgeInsets.all(8.0),
                child: Text('Credit Card KFS | Credit Card T&Cs | Uni T&Cs | Lending Partner TnCs', style: TextStyle(color: Colors.white),),
-             )
+             ),
+             const SizedBox(height: 200,)
             ],
           ),
         ),
