@@ -1,0 +1,99 @@
+<div
+  class="flex md:items-center flex-col-reverse md:flex-row w-full font-medium justify-center md:pt-[70px] py-0 md:py-[60px] md:px-8"
+>
+  <div
+    class="flex flex-col justify-start text-3xl leading-8 lg:text-[40px] text-[#1C2132] lg:leading-[1.2]"
+  >
+    <div class="w-full md:w-[300px] lg:w-[510px]">
+      <div>
+        <span style="font-weight: 700">1% assured cashback on your spends.</span
+        ><span style="font-weight: 400; color: #9ea7ae"
+          >The more you spend, the more you earn.</span
+        >
+      </div>
+    </div>
+    <div class="info-caption">
+      <div
+        class="leading-5 mt-10 font-normal text-[13px] md:text-lg text-[#9EA7AE]"
+      >
+        Not applicable on fuel purchase, rent &amp; wallet transfers, ATM
+        withdrawals &amp; international transactions.
+      </div>
+    </div>
+  </div>
+  <div class="w-full my-10 md:my-0 lg:pt-0 lg:w-[50%]">
+    <div class="flex justify-center overflow-hidden">
+      <div class="relative w-[280px] lg:w-[448px]">
+        <img src="/images/one_percent_cashback.png" class="" />
+      </div>
+    </div>
+  </div>
+</div>
+ import 'package:flutter/material.dart';
+
+class Body extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) {
+        return Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(vertical: 60, horizontal: 8),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                    Expanded(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                                Container(
+                                    width: 300,
+                                    child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                            Text(
+                                                '1% assured cashback on your spends.',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 40,
+                                                    color: Color(0xFF1C2132),
+                                                ),
+                                            ),
+                                            Text(
+                                                'The more you spend, the more you earn.',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.normal,
+                                                    fontSize: 13,
+                                                    color: Color(0xFF9EA7AE),
+                                                ),
+                                            ),
+                                        ],
+                                    ),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                    'Not applicable on fuel purchase, rent & wallet transfers, ATM withdrawals & international transactions.',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 13,
+                                        color: Color(0xFF9EA7AE),
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                        child: Container(
+                            margin: EdgeInsets.only(top: 10, bottom: 10),
+                            child: Image.asset(
+                                'images/one_percent_cashback.png',
+                                width: 448,
+                            ),
+                        ),
+                    ),
+                ],
+            ),
+        );
+    }
+}

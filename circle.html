@@ -1,0 +1,34 @@
+<div
+  style="background: linear-gradient(140.86deg, #65ecd8 11.07%, #fdef78 80.28%)"
+  class="flex w-[96px] md:w-[150px] h-[96px] md:h-[150px] rounded-[50%] justify-center"
+>
+  <img
+    alt="down_arrow"
+    src="/images/down_arrow.svg"
+    loading="lazy"
+    class="w-9 md:w-14 css-0"
+  />
+</div>
+Container(
+  width: 150,
+  height: 150,
+  decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(75),
+    gradient: LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Color(0xff65ecd8),
+        Color(0xfffdef78),
+      ],
+      stops: [0.1107, 0.8028],
+    ),
+  ),
+  child: Center(
+    child: Image.asset(
+      'images/down_arrow.svg',
+      width: 14,
+      height: 14,
+    ),
+  ),
+);
